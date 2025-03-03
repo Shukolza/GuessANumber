@@ -1,0 +1,38 @@
+name: Python application
+
+on:
+  push:
+    branches: [ main ]  # Запускается при push'е в ветку main
+  pull_request:
+    branches: [ main ]  # Запускается при создании Pull Request'а
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Используется последняя версия Ubuntu
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3  # Клонирует ваш репозиторий
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.13'  # Укажите вашу версию Python
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install black flake8  # Установка инструментов для проверки кода
+
+    - name: Check code formatting
+      run: |
+        black . --check  # Проверка форматирования
+        flake8 .  # Проверка стиля кода
+
+    - name: Run tests
+      run: |
+        echo "No tests yet. Add pytest or unittest to automate testing."
+
+    - name: Package project
+      run: |
+        zip -r guess-a-number.zip . -x ".git/*" ".github/*"  # Создание архива с исходным кодом
