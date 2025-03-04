@@ -76,6 +76,8 @@ def settings_menu():
 
                 with open("settings.json", "w") as file:
                     json.dump(settings, file)
+                input("Success! Press Enter to continue...")
+                continue
             except ValueError:
                 print("Invalid input. Must be number.")
                 input("Press Enter to continue...")
@@ -114,6 +116,7 @@ def winner(
     user_suggestions: list,
     system_answers: list,
 ):
+    global high_score
     clear()
     print("============================ YOU WON ============================")
     print(f"Spent attempts: {spent_attempts} / {attempts_amount}")
@@ -124,7 +127,7 @@ def winner(
             file.write(high_score)
     print("Your suggestions:")
     tmp_counter = 1
-    for suggestion in len(user_suggestions):
+    for suggestion in range(len(user_suggestions)):
         print(
             f"[{tmp_counter}] {user_suggestions[suggestion]} : {system_answers[suggestion]}"
         )
@@ -183,6 +186,9 @@ def game():
                 input("Press Enter to continue...")
                 continue
             if user_suggestion == correct_random_num:
+                system_answers.append("equal!")
+                user_suggestions.append(str(user_suggestion))
+                spent_attempts_counter += 1
                 winner(
                     spent_attempts_counter,
                     current_attempts_amount,
@@ -193,17 +199,23 @@ def game():
                 break
             elif user_suggestion < correct_random_num:
                 system_answers.append("higher")
-                user_suggestions.append(user_suggestion)
+                user_suggestions.append(str(user_suggestion))
                 spent_attempts_counter += 1
-                current_attempts_amount -= 1
+                try:
+                    current_attempts_amount -= 1
+                except TypeError:
+                    pass
                 print("Must be higher!")
                 input("Press Enter to continue...")
                 continue
             else:
                 system_answers.append("lower")
-                user_suggestions.append(user_suggestion)
+                user_suggestions.append(str(user_suggestion))
                 spent_attempts_counter += 1
-                current_attempts_amount -= 1
+                try:
+                    current_attempts_amount -= 1
+                except TypeError:
+                    pass
                 print("Must be lower!")
                 input("Press Enter to continue...")
                 continue
