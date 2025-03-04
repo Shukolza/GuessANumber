@@ -1,6 +1,7 @@
 # GuessANumber
 
 A simple game where the goal is to guess a random number.
+**Not ready yet**
 
 ## Table of Contents
 
