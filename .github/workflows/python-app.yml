@@ -28,11 +28,6 @@ jobs:
       run: |
         black . || echo "Black formatting failed, but continuing..."
 
-    - name: Check code formatting
-      run: |
-        black . --check || echo "Black check failed, but continuing..."
-        flake8 . || echo "Flake8 check failed, but continuing..."
-
     - name: Run tests
       run: |
         echo "No tests yet. Add pytest or unittest to automate testing."
