@@ -91,8 +91,18 @@ def game_over(
     user_suggestions: list,
     system_answers: list,
 ):
-    pass  # Todo
-
+    clear()
+    print("============================ GAME OVER ============================")
+    print(f"Spent attempts: {spent_attempts}")
+    print(f"Total attempts: {attempts_amount}")
+    print('Your suggestions:')
+    tmp_counter = 1
+    for suggestion in len(user_suggestions):
+        print(f'[{tmp_counter}] {user_suggestions[suggestion]} : {system_answers[suggestion]}')
+        tmp_counter += 1
+    print()
+    print(f'Correct answer was : {correct_random_number}')
+    input("Press Enter to continue...")
 
 def game():
     clear()
@@ -113,7 +123,13 @@ def game():
             clear()
             if current_attempts_amount != "infinity":
                 if current_attempts_amount == 0:
-                    # game_over() ToDo!
+                    game_over(
+                        spent_attempts_counter,
+                        current_attempts_amount,
+                        correct_random_num,
+                        user_suggestions,
+                        system_answers,
+                    )
                     break
             print(
                 "============================ Guess a number ============================"
