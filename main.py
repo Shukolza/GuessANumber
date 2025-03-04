@@ -95,14 +95,44 @@ def game_over(
     print("============================ GAME OVER ============================")
     print(f"Spent attempts: {spent_attempts}")
     print(f"Total attempts: {attempts_amount}")
-    print('Your suggestions:')
+    print("Your suggestions:")
     tmp_counter = 1
     for suggestion in len(user_suggestions):
-        print(f'[{tmp_counter}] {user_suggestions[suggestion]} : {system_answers[suggestion]}')
+        print(
+            f"[{tmp_counter}] {user_suggestions[suggestion]} : {system_answers[suggestion]}"
+        )
         tmp_counter += 1
     print()
-    print(f'Correct answer was : {correct_random_number}')
+    print(f"Correct answer was : {correct_random_number}")
     input("Press Enter to continue...")
+
+
+def winner(
+    spent_attempts: int,
+    attempts_amount: int,
+    correct_random_number: int,
+    user_suggestions: list,
+    system_answers: list,
+):
+    clear()
+    print("============================ YOU WON ============================")
+    print(f"Spent attempts: {spent_attempts} / {attempts_amount}")
+    if spent_attempts < high_score:
+        high_score = spent_attempts
+        print(f"NEW HIGH SCORE!")
+        with open("hiscore.txt", "w") as file:
+            file.write(high_score)
+    print("Your suggestions:")
+    tmp_counter = 1
+    for suggestion in len(user_suggestions):
+        print(
+            f"[{tmp_counter}] {user_suggestions[suggestion]} : {system_answers[suggestion]}"
+        )
+        tmp_counter += 1
+    print()
+    print(f"Correct answer was : {correct_random_number}")
+    input("Press Enter to continue...")
+
 
 def game():
     clear()
@@ -153,7 +183,13 @@ def game():
                 input("Press Enter to continue...")
                 continue
             if user_suggestion == correct_random_num:
-                # winner() ToDo!
+                winner(
+                    spent_attempts_counter,
+                    current_attempts_amount,
+                    correct_random_num,
+                    user_suggestions,
+                    system_answers,
+                )
                 break
             elif user_suggestion < correct_random_num:
                 system_answers.append("higher")
