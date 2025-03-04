@@ -4,6 +4,25 @@ import os
 import json
 import random
 
+try:
+    os.system("black -q .")
+except ModuleNotFoundError:
+    os.system("pip install -r requirements.txt")
+    try:
+        os.system("black -q .")
+    except ModuleNotFoundError:
+        print(
+            "Error: unable to auto-install black. Please try manually \n pip install -r requirements.txt \n It is not necessary, but recommended"
+        )
+        print("[1] Ignore and continue")
+        print("[2] Exit")
+        choice = input("Enter your choice: ")
+        if choice == "1":
+            pass
+        else:
+            sys.exit(0)
+
+
 with open("hiscore.txt") as file:
     high_score = int(file.read())
 
@@ -147,6 +166,8 @@ while True:
     print("[3] Exit")
     print("[4] Contact developer")
     choice = input("Enter your choice >>>")
+    if choice == "1":
+        game()
     if choice == "2":
         settings_menu()
     if choice == "3":
