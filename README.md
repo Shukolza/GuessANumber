@@ -26,11 +26,11 @@ GuessANumber is a console-based game where the player tries to guess a randomly 
 - **Customizable Settings**: Adjust the number of attempts and the range of random numbers.
 - **High Score Tracking**: The game tracks the highest score achieved by players.
 - **User-Friendly Interface**: Simple and intuitive console-based interface.
-- **Cross-Platform Support**: Works on any platform with Python installed.
+- **Cross-Platform Support**: Works on any platform with, or without Python installed.
 
 ---
 
-## Installation (source code)
+## Installation (source code) python needed
 
 1. **Clone the Repository**:
    ```
@@ -52,7 +52,7 @@ GuessANumber is a console-based game where the player tries to guess a randomly 
 
 ---
 
-## Installation (ready-to-use compiled EXE)
+## Installation (ready-to-use compiled EXE) doesn't need python installed
 
 1. **Go to latest release, open 'assets' and download compiled.exe**:<br>
    [Releases link](https://github.com/Shukolza/GuessANumber/releases)
@@ -67,7 +67,8 @@ GuessANumber is a console-based game where the player tries to guess a randomly 
 Upon starting the game, you will see the following options:
 
 ```
-============================= Guess a Number ============================
+============================ Guess a number ============================
+
 [1] Start game
 [2] Settings
 [3] Exit
