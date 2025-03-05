@@ -36,7 +36,7 @@ def resource_path(relative_path):
     """Get a correct file path for compiled EXE"""
     try:
         # Temp folder PyInstaller
-        base_path = sys._MEIPASS # type: ignore
+        base_path = sys._MEIPASS  # type: ignore
     except AttributeError:
         # Standard mode (launched via Python)
         base_path = os.path.dirname(os.path.abspath(__file__))
@@ -298,7 +298,7 @@ def game():
                     "Welcome, developer. Here is all current game variables you may need:"
                 )
                 print("Correct answer :", correct_random_num)
-            print()
+                print()
             print(f"{attempts_amount_counter} attempts left.")
             print(f"You spent {spent_attempts_counter} attempts so far.")
             print()
@@ -389,7 +389,7 @@ while True:
             webbrowser.open("t.me/shukolza", new=2)
         elif choice == "2":
             if dev_code:
-                code = getpass("Enter developer code >>>") # type: ignore
+                code = getpass("Enter developer code >>>")  # type: ignore
                 if code == dev_code:
                     developer_mode = True
                     print("Welcome, developer!")
