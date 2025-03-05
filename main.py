@@ -5,6 +5,12 @@ import json
 import random
 import colorama
 
+try:
+    from secret import dev_code
+    from getpass import getpass
+except ModuleNotFoundError:
+    dev_code = ""
+
 colorama.init(autoreset=True)
 
 try:
@@ -42,6 +48,8 @@ with open(resource_path("hiscore.txt"), "r") as file:
 
 with open(resource_path("settings.json"), "r") as file:
     settings = json.load(file)
+
+developer_mode = False
 
 
 def clear():
@@ -265,6 +273,10 @@ def game():
                 )
             )
             print()
+            if developer_mode:
+                print('Welcome, developer. Here is all current game variables you may need:')
+                print('Correct answer :', correct_random_num)     
+            print()
             print(f"{attempts_amount_counter} attempts left.")
             print(f"You spent {spent_attempts_counter} attempts so far.")
             print()
@@ -331,6 +343,8 @@ while True:
         )
     )
     print()
+    if developer_mode:
+        print("Welcome, developer!")
     print("[1] Start game")
     print("[2] Settings")
     print("[3] Exit")
@@ -344,4 +358,22 @@ while True:
         print("Goodbye!")
         sys.exit(0)
     if choice == "4":
-        webbrowser.open("t.me/shukolza", new=2)
+        clear()
+        print("[1] Contact developer")
+        print("[2] Enable developer mode")
+        choice = input("Enter your choice >>>")
+        if choice == "1":
+            webbrowser.open("t.me/shukolza", new=2)
+        elif choice == "2":
+            if dev_code:
+                code = getpass("Enter developer code >>>")
+                if code == dev_code:
+                    developer_mode = True
+                    print("Welcome, developer!")
+                    input("Press Enter to continue...")
+                else:
+                    print("Incorrect developer code!")
+                    input("Press Enter to continue")
+            else:
+                print("Seems like you shouldn't be here...")
+                input("Press Enter to continue...")

@@ -171,3 +171,4 @@ cython_debug/
 .pypirc
 test.py
 img/134948246.ico
+secret.py
