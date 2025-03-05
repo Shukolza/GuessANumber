@@ -3,6 +3,9 @@ import sys
 import os
 import json
 import random
+import colorama
+
+colorama.init(autoreset=True)
 
 try:
     os.system("black -q .")
@@ -24,7 +27,7 @@ except ModuleNotFoundError:
 
 
 def resource_path(relative_path):
-    """Get a correct file pah for compiled EXE"""
+    """Get a correct file path for compiled EXE"""
     try:
         # Temp folder PyInstaller
         base_path = sys._MEIPASS
@@ -56,10 +59,59 @@ def calculate_score(min_num, max_num, spent_attempts, attempts_amount):
     return score
 
 
+def rainbow_text(text):
+    """Get rainbow text"""
+    colors = [
+        colorama.Fore.RED,
+        colorama.Fore.YELLOW,
+        colorama.Fore.GREEN,
+        colorama.Fore.CYAN,
+        colorama.Fore.BLUE,
+        colorama.Fore.MAGENTA,
+    ]
+
+    result = ""
+    for i, char in enumerate(text):
+        color = colors[i % len(colors)]
+        result += f"{color}{char}"
+
+    return result + colorama.Style.RESET_ALL
+
+
+def color_text(text, color):
+    """
+    Returns colored text
+
+    :param text: String that needs to be colored
+    :param color: Color name ('red', 'blue', 'green', etc.)
+    :return: Colored text
+    """
+
+    color_map = {
+        "red": colorama.Fore.RED,
+        "green": colorama.Fore.GREEN,
+        "yellow": colorama.Fore.YELLOW,
+        "blue": colorama.Fore.BLUE,
+        "magenta": colorama.Fore.MAGENTA,
+        "cyan": colorama.Fore.CYAN,
+        "white": colorama.Fore.WHITE,
+        "black": colorama.Fore.BLACK,
+        "reset": colorama.Fore.RESET,  # Color reset
+    }
+
+    selected_color = color_map.get(color.lower(), colorama.Fore.RESET)
+
+    return f"{selected_color}{text}{colorama.Style.RESET_ALL}"
+
+
 def settings_menu():
     while True:
         clear()
-        print("Settings Menu")
+        print(
+            rainbow_text(
+                "============================ Settings Menu ============================"
+            )
+        )
         print()
         print("[1] Set attempts count")
         print("[2] Set random number range")
@@ -115,7 +167,12 @@ def game_over(
     system_answers: list,
 ):
     clear()
-    print("============================ GAME OVER ============================")
+    print(
+        color_text(
+            "============================ GAME OVER ============================", "red"
+        )
+    )
+    print()
     print(f"Spent attempts: {spent_attempts}")
     print(f"Total attempts: {attempts_amount}")
     print("Your suggestions:")
@@ -144,7 +201,12 @@ def winner(
     )
 
     clear()
-    print("============================ YOU WON ============================")
+    print(
+        color_text(
+            "============================ YOU WON ============================", "green"
+        )
+    )
+    print()
     print(f"Spent attempts: {spent_attempts} / {attempts_amount}")
     print(f"Your score: {score}")
     if score > high_score:
@@ -166,7 +228,12 @@ def winner(
 
 def game():
     clear()
-    print("============================ Guess a number ============================")
+    print(
+        rainbow_text(
+            "============================ Guess a number ============================"
+        )
+    )
+    print()
     print(
         f"You have {settings["attempts_count"]} attempts to guess the number in range from {settings["random_number_range_1"]} to {settings["random_number_range_2"]}."
     )
@@ -193,8 +260,11 @@ def game():
                     )
                     break
             print(
-                "============================ Guess a number ============================"
+                rainbow_text(
+                    "============================ Guess a number ============================"
+                )
             )
+            print()
             print(f"{attempts_amount_counter} attempts left.")
             print(f"You spent {spent_attempts_counter} attempts so far.")
             print()
@@ -255,7 +325,11 @@ def game():
 
 while True:
     clear()
-    print("============================ Guess a number ============================")
+    print(
+        rainbow_text(
+            "============================ Guess a number ============================"
+        )
+    )
     print()
     print("[1] Start game")
     print("[2] Settings")
