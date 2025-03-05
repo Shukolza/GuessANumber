@@ -17,13 +17,13 @@ A simple game where the goal is to guess a random number.
 
 ## Description
 
-GuessANumber is a console-based game where the player tries to guess a randomly generated number within a specified range. The game provides hints ("higher" or "lower") to guide the player toward the correct answer. Players can customize the game settings, such as the number of attempts and the range of random numbers.
+GuessANumber is a console-based game where the player tries to guess a randomly generated number within a specified range. The game provides hints ("higher" or "lower") to guide the player toward the correct answer. Players can customize the game settings, such as the number of attempts, range of random numbers and enabling hints.
 
 ---
 
 ## Features
 
-- **Customizable Settings**: Adjust the number of attempts and the range of random numbers.
+- **Customizable Settings**: Adjust the number of attempts, the range of random numbers and more.
 - **High Score Tracking**: The game tracks the highest score achieved by players.
 - **User-Friendly Interface**: Simple and intuitive console-based interface.
 - **Cross-Platform Support**: Works on any platform with, or without Python installed.
@@ -103,7 +103,8 @@ Example `settings.json`:
 {
     "attempts_count": "infinity",
     "random_number_range_1": 1,
-    "random_number_range_2": 100
+    "random_number_range_2": 100,
+    "hints_enabled": false
 }
 ```
 
