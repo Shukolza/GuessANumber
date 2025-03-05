@@ -170,3 +170,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 test.py
+img/134948246.ico

@@ -23,10 +23,21 @@ except ModuleNotFoundError:
             sys.exit(0)
 
 
-with open("hiscore.txt") as file:
+def resource_path(relative_path):
+    """Get a correct file pah for compiled EXE"""
+    try:
+        # Temp folder PyInstaller
+        base_path = sys._MEIPASS
+    except AttributeError:
+        # Standard mode (launched via Python)
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, relative_path)
+
+
+with open(resource_path("hiscore.txt"), "r") as file:
     high_score = int(file.read())
 
-with open("settings.json", "r") as file:
+with open(resource_path("settings.json"), "r") as file:
     settings = json.load(file)
 
 
