@@ -1,5 +1,1 @@
-{
-    "attempts_count": "infinity",
-    "random_number_range_1": 1,
-    "random_number_range_2": 100
-}
+{"attempts_count": 10, "random_number_range_1": 1, "random_number_range_2": 100}
