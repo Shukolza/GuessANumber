@@ -30,7 +30,7 @@ GuessANumber is a console-based game where the player tries to guess a randomly 
 
 ---
 
-## Installation
+## Installation (source code)
 
 1. **Clone the Repository**:
    ```
@@ -52,6 +52,14 @@ GuessANumber is a console-based game where the player tries to guess a randomly 
 
 ---
 
+## Installation (ready-to-use compiled EXE)
+
+1. **Go to latest release, open 'assets' and download compiled.exe**:<br>
+   [Releases link](https://github.com/Shukolza/GuessANumber/releases)
+
+3. Open it! 🎉🎉🎉
+
+---
 ## Usage
 
 ### Main Menu
