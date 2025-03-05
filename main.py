@@ -123,9 +123,11 @@ def settings_menu():
         print()
         print("[1] Set attempts count")
         print("[2] Set random number range")
-        print("[3] Back to main menu")
+        print("[3] Hints")
+        print("[4] Back to main menu")
         choice = input("Your choice >>>")
         if choice == "1":
+            print()
             attempts = input('Enter attempts count or "infinity" >>>')
             try:
                 settings["attempts_count"] = int(attempts)
@@ -144,6 +146,7 @@ def settings_menu():
                 json.dump(settings, file)
             input("Success! Press Enter to continue...")
         if choice == "2":
+            print()
             min_num = input("Enter min number (inclusive) >>>")
             max_num = input("Enter max number (inclusive) >>>")
             try:
@@ -164,6 +167,23 @@ def settings_menu():
                 input("Press Enter to continue...")
                 continue
         if choice == "3":
+            print()
+            print("[1] Enable hints")
+            print("[2] Disable hints")
+            choice = input("Enter your choice >>>")
+            if choice == "1":
+                settings["hints_enabled"] = True
+                with open("settings.json", "w") as file:
+                    json.dump(settings, file)
+                input("Success! Press Enter to continue...")
+            if choice == "2":
+                settings["hints_enabled"] = False
+                with open("settings.json", "w") as file:
+                    json.dump(settings, file)
+                input("Success! Press Enter to continue...")
+            else:
+                input("Invalid input. Press Enter to continue...")
+        if choice == "4":
             break
 
 
@@ -274,16 +294,19 @@ def game():
             )
             print()
             if developer_mode:
-                print('Welcome, developer. Here is all current game variables you may need:')
-                print('Correct answer :', correct_random_num)     
+                print(
+                    "Welcome, developer. Here is all current game variables you may need:"
+                )
+                print("Correct answer :", correct_random_num)
             print()
             print(f"{attempts_amount_counter} attempts left.")
             print(f"You spent {spent_attempts_counter} attempts so far.")
             print()
-            print("Your last suggestions:", end="\n")
-            for i in range(len(user_suggestions)):
-                print(user_suggestions[i] + ":", end=system_answers[i] + ";\n")
-            print()
+            if settings["hints_enabled"]:
+                print("Your last suggestions:", end="\n")
+                for i in range(len(user_suggestions)):
+                    print(user_suggestions[i] + ":", end=system_answers[i] + ";\n")
+                print()
             user_suggestion = input("Enter your number >>>")
             try:
                 user_suggestion = int(user_suggestion)
