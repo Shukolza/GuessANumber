@@ -1,9 +1,5 @@
-import webbrowser
+import subprocess
 import sys
-import os
-import json
-import random
-import colorama
 
 try:
     from secret import dev_code
@@ -11,25 +7,34 @@ try:
 except ModuleNotFoundError:
     dev_code = ""
 
-colorama.init(autoreset=True)
-
 try:
-    os.system("black -q .")
-except ModuleNotFoundError:
-    os.system("pip install -r requirements.txt")
+    import webbrowser
+    import json
+    import random
+    import colorama
+    import os
+except ModuleNotFoundError as exception:
+    print(f'Unable to import requirements. Error : {exception} \nTrying auto-install...')
+
+    command = [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]
+
     try:
-        os.system("black -q .")
-    except ModuleNotFoundError:
-        print(
-            "Error: unable to auto-install black. Please try manually \n pip install -r requirements.txt \n It is not necessary, but recommended"
-        )
-        print("[1] Ignore and continue")
-        print("[2] Exit")
-        choice = input("Enter your choice: ")
-        if choice == "1":
-            pass
-        else:
-            sys.exit(0)
+        result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        print("Dependencies installed successfully.")
+        
+        import webbrowser
+        import sys
+        import json
+        import random
+        import colorama
+        print("All modules imported successfully.")
+        input("Press Enter to continue...")
+    except subprocess.CalledProcessError as e:
+        print("Failed to install dependencies.")
+        print(f"Error details:\n{e.stderr.decode('utf-8')}")
+        sys.exit(1) 
+    
 
 
 def resource_path(relative_path):
@@ -50,6 +55,7 @@ with open(resource_path("settings.json"), "r") as file:
     settings = json.load(file)
 
 developer_mode = False
+colorama.init(autoreset=True)
 
 
 def clear():

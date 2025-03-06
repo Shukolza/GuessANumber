@@ -1,2 +1,7 @@
-black
+webbrowser
+sys
+os
+json
+random
 colorama
+subprocess
