@@ -134,15 +134,15 @@ def settings_menu():
             except ValueError:
                 if attempts.lower() == "infinity":
                     settings["attempts_count"] = "infinity"
-                    with open("settings.json", "w") as file:
+                    with open(resource_path("settings.json"), "w") as file:
                         json.dump(settings, file)
                     input("Success! Press Enter to continue...")
                     continue
-                print("Invalid input. Must be number.")
+                print("Invalid input. Must be a number.")
                 input("Press Enter to continue...")
                 continue
 
-            with open("settings.json", "w") as file:
+            with open(resource_path("settings.json"), "w") as file:
                 json.dump(settings, file)
             input("Success! Press Enter to continue...")
         if choice == "2":
@@ -151,14 +151,14 @@ def settings_menu():
             max_num = input("Enter max number (inclusive) >>>")
             try:
                 if max_num <= min_num:
-                    print("Invalid input. Max number must be greater than min number.")
+                    print("Invalid input: max number must be greater than min number.")
                     input("Press Enter to continue...")
                     continue
 
                 settings["random_number_range_1"] = int(min_num)
                 settings["random_number_range_2"] = int(max_num)
 
-                with open("settings.json", "w") as file:
+                with open(resource_path("settings.json"), "w") as file:
                     json.dump(settings, file)
                 input("Success! Press Enter to continue...")
                 continue
@@ -173,12 +173,12 @@ def settings_menu():
             choice = input("Enter your choice >>>")
             if choice == "1":
                 settings["hints_enabled"] = True
-                with open("settings.json", "w") as file:
+                with open(resource_path("settings.json"), "w") as file:
                     json.dump(settings, file)
                 input("Success! Press Enter to continue...")
             if choice == "2":
                 settings["hints_enabled"] = False
-                with open("settings.json", "w") as file:
+                with open(resource_path("settings.json"), "w") as file:
                     json.dump(settings, file)
                 input("Success! Press Enter to continue...")
             else:
@@ -240,7 +240,7 @@ def winner(
     if score > high_score:
         high_score = score
         print(f"NEW HIGH SCORE!")
-        with open("hiscore.txt", "w") as file:
+        with open(resource_path("hiscore.txt"), "w") as file:
             file.write(str(high_score))
     print("Your suggestions:")
     tmp_counter = 1
@@ -400,3 +400,6 @@ while True:
             else:
                 print("Seems like you shouldn't be here...")
                 input("Press Enter to continue...")
+
+
+# TODO Debug

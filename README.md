@@ -30,43 +30,51 @@ GuessANumber is a console-based game where the player tries to guess a randomly 
 
 ---
 
-## Installation (source code) python needed
+## Installation
+
+---
+
+### Installation (source code) python needed
 
 1. **Clone the Repository**:
-   ```
+
+   ``` bash
    git clone https://github.com/shukolza/GuessANumber.git
    cd GuessANumber
    ```
 
 2. **Install Dependencies**:
    Ensure you have Python 3.10 or higher installed. Then, install the required dependencies:
-   ```
+
+   ``` bash
    pip install -r requirements.txt
    ```
 
 3. **Run the Game**:
    Execute the main script to start the game:
-   ```
+
+   ``` bash
    python main.py
    ```
 
 ---
 
-## Installation (ready-to-use compiled EXE) doesn't need python installed
+### Installation (ready-to-use compiled EXE) doesn't need python installed
 
-1. **Go to latest release, open 'assets' and download compiled.exe**:<br>
+1. **Go to latest release, open 'assets' and download compiled.exe**:
    [Releases link](https://github.com/Shukolza/GuessANumber/releases)
 
-3. Open it! 🎉🎉🎉
+2. Open it! 🎉🎉🎉
 
 ---
+
 ## Usage
 
 ### Main Menu
 
 Upon starting the game, you will see the following options:
 
-```
+``` output
 ============================ Guess a number ============================
 
 [1] Start game
@@ -99,7 +107,8 @@ The game settings are stored in the `settings.json` file. You can modify the fol
 - **Random Number Range**: Define the range of random numbers (`random_number_range_1` and `random_number_range_2`).
 
 Example `settings.json`:
-```
+
+``` JSON
 {
     "attempts_count": "infinity",
     "random_number_range_1": 1,
@@ -118,17 +127,23 @@ Contributions are welcome! If you'd like to contribute to the project, follow th
 
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix:
-   ```
+
+   ``` bash
    git checkout -b feature-name
    ```
+
 3. Commit your changes:
-   ```
+
+   ``` bash
    git commit -m "Add feature or fix"
    ```
+
 4. Push to your fork:
-   ```
+
+   ``` bash
    git push origin feature-name
    ```
+
 5. Open a pull request on GitHub.
 
 ---
