@@ -2,5 +2,5 @@
     "attempts_count": "infinity",
     "random_number_range_1": 1,
     "random_number_range_2": 100,
-    "hints_enabled" : false
+    "hints_enabled": false
 }

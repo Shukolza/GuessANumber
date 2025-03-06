@@ -5,3 +5,4 @@ json
 random
 colorama
 subprocess
+pygame

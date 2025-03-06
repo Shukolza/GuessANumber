@@ -13,28 +13,33 @@ try:
     import random
     import colorama
     import os
+    import pygame
 except ModuleNotFoundError as exception:
-    print(f'Unable to import requirements. Error : {exception} \nTrying auto-install...')
-
+    print(
+        f"Unable to import requirements. Error : {exception} \nTrying auto-install..."
+    )
     command = [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]
 
     try:
-        result = subprocess.run(command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(
+            command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
 
         print("Dependencies installed successfully.")
-        
+
         import webbrowser
         import sys
         import json
         import random
         import colorama
+        import pygame
+
         print("All modules imported successfully.")
         input("Press Enter to continue...")
     except subprocess.CalledProcessError as e:
         print("Failed to install dependencies.")
         print(f"Error details:\n{e.stderr.decode('utf-8')}")
-        sys.exit(1) 
-    
+        sys.exit(1)
 
 
 def resource_path(relative_path):
@@ -56,6 +61,10 @@ with open(resource_path("settings.json"), "r") as file:
 
 developer_mode = False
 colorama.init(autoreset=True)
+pygame.mixer.init()
+
+error_sound = pygame.mixer.Sound("sound/error.mp3")
+choose_sound = pygame.mixer.Sound("sound/choose.mp3")
 
 
 def clear():
@@ -66,7 +75,7 @@ def clear():
 def calculate_score(min_num, max_num, spent_attempts, attempts_amount):
     """Calculate score with anti-cheat measures"""
     range_size = max_num - min_num + 1
-    base_score = (range_size ** 0.5) / spent_attempts
+    base_score = (range_size**0.5) / spent_attempts
 
     # Anti-cheat measures
     if range_size < 10:
@@ -77,7 +86,7 @@ def calculate_score(min_num, max_num, spent_attempts, attempts_amount):
     # Main logic
     if attempts_amount != "infinity":
         if spent_attempts <= attempts_amount * 0.5:
-            bonus = 1.2 
+            bonus = 1.2
         else:
             bonus = 1.0
     else:
@@ -89,6 +98,7 @@ def calculate_score(min_num, max_num, spent_attempts, attempts_amount):
 
     final_score = base_score * bonus
     return round(final_score, 2)
+
 
 def rainbow_text(text):
     """Get rainbow text"""
@@ -161,6 +171,7 @@ def settings_menu():
                         json.dump(settings, file)
                     input("Success! Press Enter to continue...")
                     continue
+                error_sound.play()
                 print("Invalid input. Must be a number.")
                 input("Press Enter to continue...")
                 continue
@@ -173,7 +184,10 @@ def settings_menu():
             min_num = input("Enter min number (inclusive) >>>")
             max_num = input("Enter max number (inclusive) >>>")
             try:
+                min_num = int(min_num)
+                max_num = int(max_num)
                 if max_num <= min_num:
+                    error_sound.play()
                     print("Invalid input: max number must be greater than min number.")
                     input("Press Enter to continue...")
                     continue
@@ -186,6 +200,7 @@ def settings_menu():
                 input("Success! Press Enter to continue...")
                 continue
             except ValueError:
+                error_sound.play()
                 print("Invalid input. Must be number.")
                 input("Press Enter to continue...")
                 continue
@@ -205,6 +220,7 @@ def settings_menu():
                     json.dump(settings, file)
                 input("Success! Press Enter to continue...")
             else:
+                error_sound.play()
                 input("Invalid input. Press Enter to continue...")
         if choice == "4":
             break
@@ -278,6 +294,8 @@ def winner(
 
 
 def game():
+    with open("settings.json", 'r') as file:
+        settings = json.load(file)
     clear()
     print(
         rainbow_text(
@@ -334,10 +352,12 @@ def game():
             try:
                 user_suggestion = int(user_suggestion)
             except ValueError:
+                error_sound.play()
                 print("Invalid input. Must be number.")
                 input("Press Enter to continue...")
                 continue
             if user_suggestion in user_suggestions:
+                error_sound.play()
                 print("You already tried this number.")
                 input("Press Enter to continue...")
                 continue
@@ -418,11 +438,10 @@ while True:
                     print("Welcome, developer!")
                     input("Press Enter to continue...")
                 else:
+                    error_sound.play()
                     print("Incorrect developer code!")
                     input("Press Enter to continue")
             else:
+                error_sound.play()
                 print("Seems like you shouldn't be here...")
                 input("Press Enter to continue...")
-
-
-# TODO Debug
