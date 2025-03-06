@@ -58,14 +58,31 @@ def clear():
 
 
 def calculate_score(min_num, max_num, spent_attempts, attempts_amount):
-    """Calculate score depends on game parameters"""
+    """Calculate score with anti-cheat measures"""
     range_size = max_num - min_num + 1
-    if attempts_amount != "infinity":
-        score = round((range_size**0.5) / spent_attempts, 2)
-    else:
-        score = round((range_size**0.5) / (spent_attempts * 0.5), 2)
-    return score
+    base_score = (range_size ** 0.5) / spent_attempts
 
+    # Anti-cheat measures
+    if range_size < 10:
+        return 0.0  # Block too easy
+    if spent_attempts == 1 and range_size == 2:
+        return 1.0
+
+    # Main logic
+    if attempts_amount != "infinity":
+        if spent_attempts <= attempts_amount * 0.5:
+            bonus = 1.2 
+        else:
+            bonus = 1.0
+    else:
+        if spent_attempts > 10:
+            penalty = 0.5
+        else:
+            penalty = 1.0
+        bonus = penalty
+
+    final_score = base_score * bonus
+    return round(final_score, 2)
 
 def rainbow_text(text):
     """Get rainbow text"""
