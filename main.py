@@ -160,6 +160,7 @@ def settings_menu():
         print("[4] Back to main menu")
         choice = input("Your choice >>>")
         if choice == "1":
+            choose_sound.play()
             print()
             attempts = input('Enter attempts count or "infinity" >>>')
             try:
@@ -180,6 +181,7 @@ def settings_menu():
                 json.dump(settings, file)
             input("Success! Press Enter to continue...")
         if choice == "2":
+            choose_sound.play()
             print()
             min_num = input("Enter min number (inclusive) >>>")
             max_num = input("Enter max number (inclusive) >>>")
@@ -205,16 +207,19 @@ def settings_menu():
                 input("Press Enter to continue...")
                 continue
         if choice == "3":
+            choose_sound.play()
             print()
             print("[1] Enable hints")
             print("[2] Disable hints")
             choice = input("Enter your choice >>>")
             if choice == "1":
+                choose_sound.play()
                 settings["hints_enabled"] = True
                 with open(resource_path("settings.json"), "w") as file:
                     json.dump(settings, file)
                 input("Success! Press Enter to continue...")
             if choice == "2":
+                choose_sound.play()
                 settings["hints_enabled"] = False
                 with open(resource_path("settings.json"), "w") as file:
                     json.dump(settings, file)
@@ -223,6 +228,7 @@ def settings_menu():
                 error_sound.play()
                 input("Invalid input. Press Enter to continue...")
         if choice == "4":
+            choose_sound.play()
             break
 
 
@@ -417,23 +423,31 @@ while True:
     print("[4] Contact developer")
     choice = input("Enter your choice >>>")
     if choice == "1":
+        choose_sound.play()
         game()
     if choice == "2":
+        choose_sound.play()
         settings_menu()
     if choice == "3":
+        choose_sound.play()
         print("Goodbye!")
         sys.exit(0)
     if choice == "4":
+        choose_sound.play()
         clear()
         print("[1] Contact developer")
         print("[2] Enable developer mode")
+        print("[3] Return to main menu")
         choice = input("Enter your choice >>>")
         if choice == "1":
+            choose_sound.play()
             webbrowser.open("t.me/shukolza", new=2)
         elif choice == "2":
+            choose_sound.play()
             if dev_code:
                 code = getpass("Enter developer code >>>")  # type: ignore
                 if code == dev_code:
+                    choose_sound.play()
                     developer_mode = True
                     print("Welcome, developer!")
                     input("Press Enter to continue...")
@@ -445,3 +459,5 @@ while True:
                 error_sound.play()
                 print("Seems like you shouldn't be here...")
                 input("Press Enter to continue...")
+        elif choice == "3":
+            choose_sound.play()
