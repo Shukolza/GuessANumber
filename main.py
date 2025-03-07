@@ -15,9 +15,7 @@ try:
     import os
     import pygame
 except ModuleNotFoundError as exception:
-    print(
-        f"Unable to import requirements. Error : {exception} \nTrying auto-install..."
-    )
+    print(f"Библиотеки не обнаружены. Ошибка: {exception} \nЗапускаю автоустановку...")
     command = [sys.executable, "-m", "pip", "install", "-r", "requirements.txt"]
 
     try:
@@ -25,7 +23,7 @@ except ModuleNotFoundError as exception:
             command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         )
 
-        print("Dependencies installed successfully.")
+        print("Зависимости успешно установлены")
 
         import webbrowser
         import sys
@@ -34,11 +32,14 @@ except ModuleNotFoundError as exception:
         import colorama
         import pygame
 
-        print("All modules imported successfully.")
-        input("Press Enter to continue...")
+        print("Все модули успешно импортированы")
+        input("Нажмите Enter, чтобы продолжить...")
     except subprocess.CalledProcessError as e:
-        print("Failed to install dependencies.")
-        print(f"Error details:\n{e.stderr.decode('utf-8')}")
+        print("Не удалось установить зависимости(")
+        print(
+            "Попробуйте вручную запустить команду: \n pip install -r requirements.txt"
+        )
+        print(f"Детали ошибки:\n{e.stderr.decode('utf-8')}")
         sys.exit(1)
 
 
@@ -150,19 +151,21 @@ def settings_menu():
         clear()
         print(
             rainbow_text(
-                "============================ Settings Menu ============================"
+                "============================ Меню настроек ============================"
             )
         )
         print()
-        print("[1] Set attempts count")
-        print("[2] Set random number range")
-        print("[3] Hints")
-        print("[4] Back to main menu")
-        choice = input("Your choice >>>")
+        print("[1] Установить количество попыток")
+        print("[2] Установить границы случайного числа")
+        print("[3] Подсказки")
+        print("[4] Вернуться в главное меню")
+        choice = input("Ваш выбор >>>")
         if choice == "1":
             choose_sound.play()
             print()
-            attempts = input('Enter attempts count or "infinity" >>>')
+            attempts = input(
+                'Введите кол-во попыток или "infinity" >>>'
+            )  # TODO - infinity -> бесконечность
             try:
                 settings["attempts_count"] = int(attempts)
             except ValueError:
@@ -170,28 +173,30 @@ def settings_menu():
                     settings["attempts_count"] = "infinity"
                     with open(resource_path("settings.json"), "w") as file:
                         json.dump(settings, file)
-                    input("Success! Press Enter to continue...")
+                    input("Успех! Нажмите Enter, чтобы продолжить...")
                     continue
                 error_sound.play()
-                print("Invalid input. Must be a number.")
-                input("Press Enter to continue...")
+                print("Неправильный ввод. Нужно ввести число")
+                input("Нажмите Enter чтобы продолжить...")
                 continue
 
             with open(resource_path("settings.json"), "w") as file:
                 json.dump(settings, file)
-            input("Success! Press Enter to continue...")
+            input("Успех! Нажмите Enter, чтобы продолжить...")
         if choice == "2":
             choose_sound.play()
             print()
-            min_num = input("Enter min number (inclusive) >>>")
-            max_num = input("Enter max number (inclusive) >>>")
+            min_num = input("Введите нижнюю границу (включительно) >>>")
+            max_num = input("Введите верхнюю границу (включительно) >>>")
             try:
                 min_num = int(min_num)
                 max_num = int(max_num)
                 if max_num <= min_num:
                     error_sound.play()
-                    print("Invalid input: max number must be greater than min number.")
-                    input("Press Enter to continue...")
+                    print(
+                        "Неправильный ввод. Нижняя граница должна быть меньше верхней."
+                    )
+                    input("Нажмите Enter чтобы продолжить...")
                     continue
 
                 settings["random_number_range_1"] = int(min_num)
@@ -199,34 +204,34 @@ def settings_menu():
 
                 with open(resource_path("settings.json"), "w") as file:
                     json.dump(settings, file)
-                input("Success! Press Enter to continue...")
+                input("Успех! Нажмите Enter, чтобы продолжить...")
                 continue
             except ValueError:
                 error_sound.play()
-                print("Invalid input. Must be number.")
-                input("Press Enter to continue...")
+                print("Неправильный ввод. Нужно ввести число.")
+                input("Нажмите Enter чтобы продолжить...")
                 continue
         if choice == "3":
             choose_sound.play()
             print()
-            print("[1] Enable hints")
-            print("[2] Disable hints")
-            choice = input("Enter your choice >>>")
+            print("[1] Включить подсказки")
+            print("[2] Выключить подсказки")
+            choice = input("Введите ваш выбор >>>")
             if choice == "1":
                 choose_sound.play()
                 settings["hints_enabled"] = True
                 with open(resource_path("settings.json"), "w") as file:
                     json.dump(settings, file)
-                input("Success! Press Enter to continue...")
+                input("Успех! Нажмите Enter, чтобы продолжить...")
             if choice == "2":
                 choose_sound.play()
                 settings["hints_enabled"] = False
                 with open(resource_path("settings.json"), "w") as file:
                     json.dump(settings, file)
-                input("Success! Press Enter to continue...")
+                input("Успех! Нажмите Enter, чтобы продолжить...")
             else:
                 error_sound.play()
-                input("Invalid input. Press Enter to continue...")
+                input("Неправильный ввод. Нажмите Enter чтобы продолжить...")
         if choice == "4":
             choose_sound.play()
             break
@@ -242,13 +247,14 @@ def game_over(
     clear()
     print(
         color_text(
-            "============================ GAME OVER ============================", "red"
+            "============================ ИГРА ОКОНЧЕНА ============================",
+            "red",
         )
     )
     print()
-    print(f"Spent attempts: {spent_attempts}")
-    print(f"Total attempts: {attempts_amount}")
-    print("Your suggestions:")
+    print(f"Потраченные попытки: {spent_attempts}")
+    print(f"Всего попыток: {attempts_amount}")
+    print("Ваши предположения:")
     tmp_counter = 1
     for suggestion in range(len(user_suggestions)):
         print(
@@ -256,8 +262,8 @@ def game_over(
         )
         tmp_counter += 1
     print()
-    print(f"Correct answer was : {correct_random_number}")
-    input("Press Enter to continue...")
+    print(f"Правильный ответ: {correct_random_number}")
+    input("Нажмите Enter, чтобы продолжить")
 
 
 def winner(
@@ -276,18 +282,19 @@ def winner(
     clear()
     print(
         color_text(
-            "============================ YOU WON ============================", "green"
+            "============================ ВЫ ВЫИГРАЛИ ============================",
+            "green",
         )
     )
     print()
-    print(f"Spent attempts: {spent_attempts} / {attempts_amount}")
-    print(f"Your score: {score}")
+    print(f"Потрачено попыток: {spent_attempts} / {attempts_amount}")
+    print(f"Счет: {score}")
     if score > high_score:
         high_score = score
-        print(f"NEW HIGH SCORE!")
+        print(f"НОВЫЙ РЕКОРД!")
         with open(resource_path("hiscore.txt"), "w") as file:
             file.write(str(high_score))
-    print("Your suggestions:")
+    print("Ваши предположения:")
     tmp_counter = 1
     for suggestion in range(len(user_suggestions)):
         print(
@@ -295,25 +302,25 @@ def winner(
         )
         tmp_counter += 1
     print()
-    print(f"Correct answer was : {correct_random_number}")
-    input("Press Enter to continue...")
+    print(f"Правильный ответ был: {correct_random_number}")
+    input("Нажмите Enter, чтобы продолжить")
 
 
 def game():
-    with open("settings.json", 'r') as file:
+    with open("settings.json", "r") as file:
         settings = json.load(file)
     clear()
     print(
         rainbow_text(
-            "============================ Guess a number ============================"
+            "============================ Угадай число ============================"
         )
     )
     print()
     print(
-        f"You have {settings["attempts_count"]} attempts to guess the number in range from {settings["random_number_range_1"]} to {settings["random_number_range_2"]}."
+        f"У тебя есть {settings["attempts_count"]} попыток чтобы угадать число в диапазоне от {settings["random_number_range_1"]} до {settings["random_number_range_2"]}."
     )
-    ready = input("Are you ready? (y/n) >>>")
-    if ready.lower() == "y":
+    ready = input("Вы готовы? (Д/Н) >>>")
+    if ready.lower() == "д":
         correct_random_num = random.randint(
             settings["random_number_range_1"], settings["random_number_range_2"]
         )
@@ -336,7 +343,7 @@ def game():
                     break
             print(
                 rainbow_text(
-                    "============================ Guess a number ============================"
+                    "============================ Угадай число ============================"
                 )
             )
             print()
@@ -346,29 +353,29 @@ def game():
                 )
                 print("Correct answer :", correct_random_num)
                 print()
-            print(f"{attempts_amount_counter} attempts left.")
-            print(f"You spent {spent_attempts_counter} attempts so far.")
+            print(f"Попыток осталось: {attempts_amount_counter}.")
+            print(f"Вы потратили {spent_attempts_counter} попыток.")
             print()
             if settings["hints_enabled"]:
-                print("Your last suggestions:", end="\n")
+                print("Ваши предыдущие предположения:", end="\n")
                 for i in range(len(user_suggestions)):
                     print(user_suggestions[i] + ":", end=system_answers[i] + ";\n")
                 print()
-            user_suggestion = input("Enter your number >>>")
+            user_suggestion = input("Введите число >>>")
             try:
                 user_suggestion = int(user_suggestion)
             except ValueError:
                 error_sound.play()
-                print("Invalid input. Must be number.")
-                input("Press Enter to continue...")
+                print("Неправильный ввод. Должно быть числом.")
+                input("Нажмите Enter, чтобы продолжить")
                 continue
             if user_suggestion in user_suggestions:
                 error_sound.play()
-                print("You already tried this number.")
-                input("Press Enter to continue...")
+                print("Вы уже пробовали это число.")
+                input("Нажмите Enter, чтобы продолжить")
                 continue
             if user_suggestion == correct_random_num:
-                system_answers.append("equal!")
+                system_answers.append("равно!")
                 user_suggestions.append(str(user_suggestion))
                 spent_attempts_counter += 1
                 winner(
@@ -384,26 +391,26 @@ def game():
                 )
                 break
             elif user_suggestion < correct_random_num:
-                system_answers.append("higher")
+                system_answers.append("больше")
                 user_suggestions.append(str(user_suggestion))
                 spent_attempts_counter += 1
                 try:
                     attempts_amount_counter -= 1
                 except TypeError:
                     pass
-                print("Must be higher!")
-                input("Press Enter to continue...")
+                print("Больше!")
+                input("Нажмите enter, чтобы продолжить")
                 continue
             else:
-                system_answers.append("lower")
+                system_answers.append("меньше")
                 user_suggestions.append(str(user_suggestion))
                 spent_attempts_counter += 1
                 try:
                     attempts_amount_counter -= 1
                 except TypeError:
                     pass
-                print("Must be lower!")
-                input("Press Enter to continue...")
+                print("Меньше!")
+                input("Нажмите enter, чтобы продолжить")
                 continue
 
 
@@ -411,17 +418,17 @@ while True:
     clear()
     print(
         rainbow_text(
-            "============================ Guess a number ============================"
+            "============================ Угадай число ============================"
         )
     )
     print()
     if developer_mode:
         print("Welcome, developer!")
-    print("[1] Start game")
-    print("[2] Settings")
-    print("[3] Exit")
-    print("[4] Contact developer")
-    choice = input("Enter your choice >>>")
+    print("[1] Начать игру")
+    print("[2] Настройки")
+    print("[3] Выход")
+    print("[4] Связаться с разработчиком")
+    choice = input("Введите ваш выбор >>>")
     if choice == "1":
         choose_sound.play()
         game()
@@ -430,15 +437,15 @@ while True:
         settings_menu()
     if choice == "3":
         choose_sound.play()
-        print("Goodbye!")
+        print("До свидания!")
         sys.exit(0)
     if choice == "4":
         choose_sound.play()
         clear()
-        print("[1] Contact developer")
+        print("[1] Связаться с разработчиком")
         print("[2] Enable developer mode")
-        print("[3] Return to main menu")
-        choice = input("Enter your choice >>>")
+        print("[3] Вернуться в главное меню")
+        choice = input("Введите ваш выбор >>>")
         if choice == "1":
             choose_sound.play()
             webbrowser.open("t.me/shukolza", new=2)
