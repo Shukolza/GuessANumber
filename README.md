@@ -1,7 +1,6 @@
 # GuessANumber
 
 A simple game where the goal is to guess a random number.
-**Not ready yet**
 
 ## Table of Contents
 
@@ -101,6 +100,8 @@ Upon starting the game, you will see the following options:
 
 ## Settings
 
+**You can also adjust these settings through the in-game settings menu.**
+
 The game settings are stored in the `settings.json` file. You can modify the following parameters:
 
 - **Attempts Count**: Set the number of attempts allowed (`attempts_count`). Use `"infinity"` for unlimited attempts.
@@ -116,8 +117,6 @@ Example `settings.json`:
     "hints_enabled": false
 }
 ```
-
-**You can also adjust these settings through the in-game settings menu.**
 
 ---
 
@@ -154,6 +153,7 @@ If you have any questions or suggestions, feel free to reach out:
 
 - **Telegram**: [@shukolza](https://t.me/shukolza)
 - **GitHub**: [shukolza](https://github.com/shukolza)
+- **Email**: [shukolza@gmail.com](shukolza@gmail.com)
 
 ---
 
