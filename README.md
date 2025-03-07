@@ -1,57 +1,57 @@
-# GuessANumber
+# Угадай число
 
-A simple game where the goal is to guess a random number.
-**Not ready yet**
+Простая игра, цель - угадать случайное число.
 
-## Table of Contents
+## Оглавление
 
-- [Description](#description)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Settings](#settings)
-- [Contributing](#contributing)
-- [Contact](#contact)
-
----
-
-## Description
-
-GuessANumber is a console-based game where the player tries to guess a randomly generated number within a specified range. The game provides hints ("higher" or "lower") to guide the player toward the correct answer. Players can customize the game settings, such as the number of attempts, range of random numbers and enabling hints.
+- [Описание](#описание)
+- [Возможности](#возможности)
+- [Установка](#установка)
+- [Использование](#использование)
+- [Настройки](#настройки)
+- [Contributing](#contributing \(для проффессионалов, обычным пользователям не нужно))
+- [Связаться](#связаться)
 
 ---
 
-## Features
+## Описание
 
-- **Customizable Settings**: Adjust the number of attempts, the range of random numbers and more.
-- **High Score Tracking**: The game tracks the highest score achieved by players.
-- **User-Friendly Interface**: Simple and intuitive console-based interface.
-- **Cross-Platform Support**: Works on any platform with, or without Python installed.
+Угадай число это консольная игра, где игрок пытается угадать случайно сгенерированное число в заданном диапазоне. Игра дает подсказки ("больше" или "меньше") чтобы
+помочь игроку угадать правильный ответ. Игрок может настраивать игровые параметры такие как кол-во попыток, диапазон случайных чисел и включение подсказок.
 
 ---
 
-## Installation
+## Возможности
+
+- **Настройки**: Управляйте количеством попыток, диапазоном случайных чисел и другими параметрами.
+- **Система счета**: Игра считает счет по специальной формуле и отслеживает рекорды.
+- **Дружелюбный интерфейс**: Простой и интуитивно понятный консольный интерфейс.
+- **Кроссплатформенность**: Работает на любых устройствах где установлен (и даже не установлен) Python.
 
 ---
 
-### Installation (source code) python needed
+## Установка
 
-1. **Clone the Repository**:
+---
+
+### Установка через исходный код (для проффессионалов) (нужен Python и git)
+
+1. **Клонируйте репозиторий**:
 
    ``` bash
    git clone https://github.com/shukolza/GuessANumber.git
    cd GuessANumber
    ```
 
-2. **Install Dependencies**:
-   Ensure you have Python 3.10 or higher installed. Then, install the required dependencies:
+2. **Установите зависимости**:
+   Убедитесь, что у вас установлен Python 3.10+. Затем, установите необходимые зависимости:
 
    ``` bash
    pip install -r requirements.txt
    ```
 
-3. **Run the Game**:
-   Execute the main script to start the game:
+3. **Запустите игру**:
+   Запустите главный скрипт чтобы начать игру:
 
    ``` bash
    python main.py
@@ -59,54 +59,56 @@ GuessANumber is a console-based game where the player tries to guess a randomly 
 
 ---
 
-### Installation (ready-to-use compiled EXE) doesn't need python installed
+### Установка готового скомпилированного EXE. (ДЛЯ НЕ ПРОФФЕССИОНАЛОВ) не требует python или git
 
-1. **Go to latest release, open 'assets' and download compiled.exe**:
-   [Releases link](https://github.com/Shukolza/GuessANumber/releases)
+1. **Перейдите на страницу последнего релиза, откройте вкладку 'assets' и скачайте файл .exe**:
+   [Страница релизов](https://github.com/Shukolza/GuessANumber/releases)
 
-2. Open it! 🎉🎉🎉
+2. **Запустите скачанный файл** 🎉🎉🎉
 
 ---
 
-## Usage
+## Использование
 
-### Main Menu
+### Главное меню
 
-Upon starting the game, you will see the following options:
+Когда вы запустите игру, Вы увидите следующие опции:
 
 ``` output
-============================ Guess a number ============================
+============================ Угадай число ============================
 
-[1] Start game
-[2] Settings
-[3] Exit
-[4] Contact developer
+[1] Начать игру
+[2] Настройки
+[3] Игры
+[4] Связаться с разработчиком
 ```
 
-- **Start Game**: Begin a new game session.
-- **Settings**: Customize game parameters (e.g., number of attempts, random number range).
-- **Exit**: Close the game.
-- **Contact Developer**: Open a link to contact the developer.
+- **Начать игру**: Начать игру.
+- **Настройки**: Настраивайте игровые праметры (например, кол-во попыток, Диапазон случайного числа).
+- **Выход**: Выход из игры.
+- **Связаться с разработчиком**: Перейти в телеграм разработчика.
 
-### Gameplay
+### Игровой процесс
 
-1. The game generates a random number within the specified range.
-2. You are prompted to guess the number.
-3. After each guess, the game provides feedback:
-   - "Higher": Your guess is too low.
-   - "Lower": Your guess is too high.
-4. The game ends when you guess the correct number or run out of attempts.
+1. Игра генерирует случайное число в заданном диапазоне.
+2. Вы вводите свое предположение.
+3. После каждой попытки, игра предлагает обратную связь:
+   - "Больше": Ваше число ниже загаданного.
+   - "Меншьше": Ваше число выше загаданного.
+4. Игра заканчивается когда вы угадываете число или у вас заканчиваются попытки.
 
 ---
 
-## Settings
+## Настройки
 
-The game settings are stored in the `settings.json` file. You can modify the following parameters:
+**Вы также можете изменять эти настройки через меню в игре.**
 
-- **Attempts Count**: Set the number of attempts allowed (`attempts_count`). Use `"infinity"` for unlimited attempts.
-- **Random Number Range**: Define the range of random numbers (`random_number_range_1` and `random_number_range_2`).
+Настройки игры сохранены в файле `settings.json`. Вы можете изменять следующие параметры:
 
-Example `settings.json`:
+- **Кол-во попыток**: Установите количество попыток (`attempts_count`). Используйте `"infinity"` для бесконечных попыток.
+- **Диапазон случайного числа**: Устанавливайте диапазон угадываемого числа (`random_number_range_1` и `random_number_range_2`).
+
+Пример `settings.json` (параметры по умолчанию):
 
 ``` JSON
 {
@@ -117,11 +119,9 @@ Example `settings.json`:
 }
 ```
 
-**You can also adjust these settings through the in-game settings menu.**
-
 ---
 
-## Contributing
+## Contributing (для проффессионалов, обычным пользователям не нужно)
 
 Contributions are welcome! If you'd like to contribute to the project, follow these steps:
 
@@ -148,16 +148,17 @@ Contributions are welcome! If you'd like to contribute to the project, follow th
 
 ---
 
-## Contact
+## Связаться
 
 If you have any questions or suggestions, feel free to reach out:
 
 - **Telegram**: [@shukolza](https://t.me/shukolza)
 - **GitHub**: [shukolza](https://github.com/shukolza)
+- **Email**: [shukolza@gmail.com]
 
 ---
 
-## Additional Notes
+## Additional Notes (для проффессионалов)
 
 - The `.gitignore` file ensures that unnecessary files (e.g., `__pycache__`, environment files) are not tracked by Git.
 - The `python-app.yml` workflow automates testing and packaging for the project. It includes steps for code formatting, dependency installation, and creating a distributable archive.
