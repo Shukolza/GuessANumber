@@ -85,7 +85,7 @@ def calculate_score(min_num, max_num, spent_attempts, attempts_amount):
         return 1.0
 
     # Main logic
-    if attempts_amount != "infinity":
+    if attempts_amount != "бесконечность":
         if spent_attempts <= attempts_amount * 0.5:
             bonus = 1.2
         else:
@@ -164,13 +164,13 @@ def settings_menu():
             choose_sound.play()
             print()
             attempts = input(
-                'Введите кол-во попыток или "infinity" >>>'
+                'Введите кол-во попыток или "бесконечность" >>>'
             )  # TODO - infinity -> бесконечность
             try:
                 settings["attempts_count"] = int(attempts)
             except ValueError:
-                if attempts.lower() == "infinity":
-                    settings["attempts_count"] = "infinity"
+                if attempts.lower() == "бесконечность":
+                    settings["attempts_count"] = "бесконечность"
                     with open(resource_path("settings.json"), "w") as file:
                         json.dump(settings, file)
                     input("Успех! Нажмите Enter, чтобы продолжить...")
@@ -331,7 +331,7 @@ def game():
         system_answers = []
         while True:
             clear()
-            if current_attempts_amount != "infinity":
+            if current_attempts_amount != "бесконечность":
                 if current_attempts_amount == 0:
                     game_over(
                         spent_attempts_counter,
